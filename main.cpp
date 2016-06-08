@@ -1,17 +1,25 @@
+/*
+Une fusée explose à 100m de hauteur, 
+des débris partent dans toutes les directions à 20m/s dans un champ gravitationel uniforme de 9.81m/s^2 (on néglige les frotements).
+Quel est le volume couvert par les débris ?
+https://projecteuler.net/problem=317
+*/
+
+
 #include <iostream>
 #include <unistd.h>
 #include <math.h>
 
-//the zero of f will give us the sin(theta) that maximise r for a given a
-double f(double x, double a){
-  return x*x+x*sqrt(x*x+a)-1;
+#include "parametres.h"
+
+//this function will return f(x)/f'(x) where f(x)=x+sqrt(x^2+ax)-1 the zero of f gives us sin(theta)^2
+double newton_ratio(double x, double a) {
+  double b=sqrt(x*x+a*x);
+  return b*(b+x-1)/(b+1+a/2);
 }
 
-//the derivative of f, used in the Newton's method to find the zero of f
-double df(double x, double a) {
-  double b=sqrt(x*x+a);
-  return 2*x+b+x*x/b;
-}
+
+
 
 main{int argc, char ** argv) {
   
