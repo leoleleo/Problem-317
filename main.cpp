@@ -12,6 +12,8 @@ https://projecteuler.net/problem=317
 
 #include "parametres.h"
 
+using namespace std
+
 
 //the zero of f gives us sin(theta)^2
 double f(double x, double a){
@@ -33,9 +35,17 @@ double newton_suite(double a){
   return x;
 }
 
+//phi is the function we will integrate, if y=sin(theta)^2, phi(y) is r^2 (without some constants terms)
+double phi(double y){
+  return (1-y*y)/(1.*y);
+}
 
 
 main{int argc, char ** argv) {
+  
+  double V; //the volume we are looking for
+  
+  double const C=( (V0*V0)/(2.*GRAV) )*( (V0*V0)/(2.*GRAV) )*( (V0*V0)/(2.*GRAV) ); //a constant term that appears in the integral
   
   double a=-1; //This is the integral parameter : a=2g(zo-h)/vo^2 (it is -1 when h is maximal)
   
@@ -43,9 +53,24 @@ main{int argc, char ** argv) {
   double const a_max = 2.*GRAV/(1.*V0*V0); //correspond to h=0
   double const h=(a_max+1)/(1.*N)
   
+  double buff; //a buffer parameter
   
+  k1=phi(newton_suite (a));
   
-  for (i=h, )
+  for (i=1, i<N, i++ ){
+    a=a+h;
+    buff=phi(newton_suite(a));
+    
+    if (i%2){
+      k2=k2+buff;
+    }
+    else k3=k3+buff;
+  }
+  k4=phi(newton_suite (a_max));
+  
+  V=C*(h/3.)*( k1+2*k2+4*k3+k4);
+  
+  cout<<"volume recherché V="<< V << endl;
   
   return 0;
 }
