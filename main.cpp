@@ -8,7 +8,7 @@ https://projecteuler.net/problem=317
 
 #include <iostream>
 #include <unistd.h>
-#include <math.h>
+#include <cmath>
 
 #include "parametres.h"
 
@@ -27,7 +27,7 @@ double newton_ratio(double x, double a) {
 //here we iterate newton's method to find the zero of f
 double newton_suite(double a){
   double x=a;
-  while (f(x, a)*f(x, a)>=PREC){
+  while (abs(f(x, a))>=PREC){
     x=x-newton_ratio(x, a);
   }
   return x;
@@ -37,7 +37,15 @@ double newton_suite(double a){
 
 main{int argc, char ** argv) {
   
+  double a=-1; //This is the integral parameter : a=2g(zo-h)/vo^2 (it is -1 when h is maximal)
   
+  double k1=0, k2=0, k3=0, k4=0; //parameters we will add up in the simpson method to get the integral
+  double const a_max = 2.*GRAV/(1.*V0*V0); //correspond to h=0
+  double const h=(a_max+1)/(1.*N)
+  
+  
+  
+  for (i=h, )
   
   return 0;
 }
